@@ -135,8 +135,22 @@ Map visualization:
     <img src="images/default_location.png" alt="RanCoord Default Location">
 </a>
 
-### 1. Create your own polygon
-If you choose this option, you will have to define the polygon using some geograohic tool as []
+### 2. Create your own polygon
+If you choose this option, you will have to define the polygon using some geographic tool as the app from [Headwall Photonics](http://apps.headwallphotonics.com/), copy the coordinates, structure them and define de polygon.
+
+<a href="https://github.com/hugodscarvalho/rancoord">
+    <img src="images/headwall_photonics.PNG" alt="Headwall Photonics App">
+</a>
+
+### 3. Get a polygon using an address using 
+If you choose this option, you can get a polygon based on the [bounding box](https://en.wikipedia.org/wiki/Minimum_bounding_box) of an address or location using *Noninatim*. 
+```python
+# Get the bounding box
+bounding_box = nominatim_geocoder('Braga, Portugal')
+# Create a polygon based on the previously created bounding box
+poly = polygon_from_boundingbox(bounding_box)
+```
+
 
 <!-- ROADMAP -->
 ## Roadmap
