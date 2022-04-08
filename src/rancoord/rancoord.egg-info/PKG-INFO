@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: rancoord
+Version: 0.0.1
+Summary: RanCoord is a Python package for random sampling of geographic coordinates.
+Home-page: https://github.com/hugodscarvalho/rancoord
+Author: Hugo Carvalho
+License: UNKNOWN
+Description: UNKNOWN
+Keywords: coordinates,random,generation,sampling,python,geographic coordinates,geocoder
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
