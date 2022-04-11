@@ -437,6 +437,38 @@ haversine = haversine_distance(lat = lat, lon = lon, method = 'osrm')
 
 -------------------------------------------
 
+### 5. [EXTENDED] Full code usage
+The following examples show an extended full code usage of the package.
+
+<a href="https://github.com/hugodscarvalho/rancoord">
+    <img src="images/extended_usage.png" alt="RanCoord Extended Usage">
+</a>
+
+Random coordinates:
+
+<p align="center">
+<a href="https://github.com/hugodscarvalho/rancoord">
+    <img src="images/random_coordinates.png" alt="RanCoord Random Coordinates" width="500">
+</a>
+</p>
+
+Distance matrix:
+
+<p align="center">
+<a href="https://github.com/hugodscarvalho/rancoord">
+    <img src="images/distance_matrix.png" alt="RanCoord Distance Matrix" width="500"> 
+</a>
+</p>
+
+Map visualization:
+
+<p align="center">
+<a href="https://github.com/hugodscarvalho/rancoord">
+    <img src="images/folium_map.png" alt="RanCoord Folium Map">
+</a>
+</p>
+
+
 <!-- ROADMAP -->
 ## Roadmap
 
