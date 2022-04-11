@@ -1,3 +1,0 @@
-Shapely>=1.8.1
-geopy>=2.2.0
-XlsxWriter>=3.0.3
