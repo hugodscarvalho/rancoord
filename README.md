@@ -9,11 +9,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Forks][forks-shield]][forks-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 
 <!-- PROJECT LOGO -->
@@ -111,9 +106,18 @@ pip install rancoord
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+### 1. Import the package
+The first step in using the package is, after it has been installed, to import it.
+
+```python
+import rancoord as rc
+```
+
+### 2. Geographical polygon 
+
 In order to be able to generate a number of random geographic coordinates within a specific location it is necessary to create the polygon that encompasses it. The package provides three different ways to approach this prerequisite.
 
-### 1. Use the default polygon
+#### 2.1. Use the default polygon
 If you choose this option, there's no need to define it, the geographic randomizer module will already have it defined. Geographic data comprised in it:
 
 ```python
@@ -135,14 +139,14 @@ Map visualization:
     <img src="images/default_location.png" alt="RanCoord Default Location">
 </a>
 
-### 2. Create your own polygon
+#### 2.2. Create your own polygon
 If you choose this option, you will have to define the polygon using some geographic tool as the app from [Headwall Photonics](http://apps.headwallphotonics.com/), copy the coordinates, structure them and define de polygon.
 
 <a href="https://github.com/hugodscarvalho/rancoord">
     <img src="images/headwall_photonics.PNG" alt="Headwall Photonics App">
 </a>
 
-### 3. Get a polygon using an address using 
+#### 2.3. Get a polygon using an address using 
 If you choose this option, you can get a polygon based on the [bounding box](https://en.wikipedia.org/wiki/Minimum_bounding_box) of an address or location using *Noninatim*. 
 ```python
 # Get the bounding box
@@ -151,11 +155,187 @@ bounding_box = nominatim_geocoder('Braga, Portugal')
 poly = polygon_from_boundingbox(bounding_box)
 ```
 
+### 3. Randomize the geographic coordinates
+Once the geographic polygon has been defined, the next step is to generate the geographic coordinates. You can also choose to modify the number of locations to generate within the polygon (*default is **10***). In addition, although by default these options are disabled, you can choose to save the geographic coordinates and to save a map containing them (*options explained below*).
+
+```python
+lat, lon = coordinates_randomizer(polygon = poly, num_locations = 50, plot = True, save = True)
+```
+
+This method will return two lists, one with the latitudes and one with the longitudes with the following characteristics:
+1. Locations within the previously defined polygon
+2. 50 locations
+3. A plot will be saved in the `/maps` folder with the .html format and named by default `map_DDMMYYYY_HHMMSS` with the temporal information of locations generation.
+4. A file containing the locations will be saved in the `/coordinates` folder with the default `.json` format and named by default `coordinates_DDMMYYYY_HHMMSS` with the temporal information of locations generation.
+
+### 4. [EXTRA] Auxiliar methods
+The following methods were used in the development of this random geocraphic coordinates generation.
+
+* [`create_dir`](#create_dir)
+* [`nominatim_geocoder`](#nominatim_geocoder)
+* [`polygon_from_boundingbox`](#polygon_from_boundingbox)
+* [`list_average`](#list_average)
+* [`plot_coordinates`](#plot_coordinates)
+* [`multiple_formats_saver`](#multiple_formats_saver)
+
+
+<a name="create_dir"/>
+
+#### create_dir( dir_name )
+
+Auxiliar function to create **a new directory** if it doesn't already exists. User can choose to name the specific location.
+
+___Arguments___
+* `dir_name` [String] : Address the new name. **Defaults** to *'data'*.                                                                                        
+
+___Example___
+
+```python
+dir_name = 'example'
+
+create_dir(dir_name)
+```
+
+-------------------------------------------
+
+<a name="nominatim_geocoder"/>
+
+#### nominatim_geocoder(address)
+
+Function to geocode an address using the Nominatim geocoder and return the bounding box of the address.
+
+___Arguments___
+* `address` [String] :  Address to geocode.
+
+___Raises___
+* `ValueError` **(address)**: The introduced adress was not found. Please introduce a valid address.
+
+___Returns___
+* [List] : List of coordinates of the bounding box of the address.
+
+___Example___
+
+```python
+
+bounding_box = nominatim_geocoder(address = 'Barcelona, Spain')
+
+```
+
+-------------------------------------------
+
+<a name="polygon_from_boundingbox"/>
+
+#### polygon_from_boundingbox(boundingbox)
+
+Function to create a polygon from a bounding box.
+
+___Arguments___
+* `boundingbox` [List] : List of coordinates of the bounding box.
+
+___Returns___
+* [Polygon] : Polygon created from the bounding box.
+
+___Example___
+
+```python
+
+poly = polygon_from_boundingbox(boundingbox = bounding_box)
+
+```
+
+-------------------------------------------
+
+<a name="list_average"/>
+
+#### list_average(list_of_numbers)
+
+Function to calculate the average of a list of numbers in order to center geographical map.
+
+___Arguments___
+* `list_of_numbers` [List] : List of numbers.
+
+___Returns___
+* [float] : Average of the list of numbers.
+
+___Example___
+
+```python
+
+avg = list_average(list_of_numbers = [1, 2, 2, 3, 6, 7])
+
+```
+
+-------------------------------------------
+
+<a name="plot_coordinates"/>
+
+#### plot_coordinates(list_of_numbers)
+
+Function to calculate the average of a list of numbers in order to center geographical map.
+
+___Arguments___
+* `lat` [List] : List of numbers.
+* `lon` [List] : List of numbers.
+* `zoom` [Integer] :  Zoom level of the map. Defaults to 11.
+* `save`[Boolean] : If True, the map will be saved. Defaults to True.
+
+
+___Returns___
+* [Folium Map] : Folium map with the coordinates.
+
+___Example___
+
+```python
+
+map = plot_coordinates(lat = lat, lon = lon, zoom = 11, save = True)
+
+```
+
+-------------------------------------------
+
+<a name="multiple_formats_saver"/>
+
+#### multiple_formats_saver(lat, lon, columns, file_format, file_name, dir_name)
+
+This function saves the coordinates lat and lon as the names introduced
+in a given columns list ('Latitude' and 'Longitude' by default). The
+coordinates are saved in a given format introduced by the user among the
+possibilities csv, json, txt and xlsx (json by default) and the output
+file name is also given by the user as file_name. User can choose the
+directory name where the output file will be saved.
+
+___Arguments___
+* `lat` [List] : List of latitude values.
+* `lon` [List] : List of longitude values.
+* `columns` [Integer] :  Column names. Defaults to ['Latitude', 'Longitude'].
+* `file_format`[String] : File format. Defaults to 'json'.
+* `file_name`[String] : File name. Defaults to 'coordinates'.
+* `dir_name`[String] : Directory name. Defaults to 'coordinates'.
+
+___Raises___
+* `AssertionError` **(lat)**: No values found on the latitude list.
+* `AssertionError` **(lon)**: No values found on the longitude list.
+* `AssertionError` **(lat & lon)**: The lists must have the same length.
+* `AssertionError` **(columns)**: No column names found.
+* `AssertionError` **(columns)**: The column names list must have two elements. 
+* `AssertionError` **(file_name)**: No file name found.
+* `AssertionError` **(dir_name)**: No directory name found.
+
+___Returns___
+* [None] : None.
+
+___Example___
+
+```python
+
+multiple_formats_saver(lat = lat, lon = lon, columns = ['Latitude', 'Longitude'], file_format = 'json', file_name = 'coordinates', dir_name = 'coordinates')
+
+```
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/hugodscarvalho/rancoord/issues) for a list of proposed features (and known issues).
 
 
 
@@ -182,42 +362,20 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [Github](https://github.com/hugodscarvalho/rancoord)
+Linkedin: [hugodscarvalho](https://www.linkedin.com/in/hugodscarvalho)
 
 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
-
-
-
+* [Folium](https://github.com/python-visualization/folium)
+* [Project OSRM](http://project-osrm.org/)
+* [Geopy](https://github.com/geopy/geopy)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/hugodscarvalho/rancoord/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/hugodscarvalho/rancoord/blob/main/LICENSE
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/hugodscarvalho
 [product-screenshot]: images/rancoord_logo.png
