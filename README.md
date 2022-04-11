@@ -177,6 +177,10 @@ The following methods were used in the development of this random geocraphic coo
 * [`list_average`](#list_average)
 * [`plot_coordinates`](#plot_coordinates)
 * [`multiple_formats_saver`](#multiple_formats_saver)
+* [`haversine_distance`](#haversine_distance)
+* [`vincenty_distance`](#vincenty_distance)
+* [`osrm_distance`](#osrm_distance)
+* [`distance_matrix`](#distance_matrix)
 
 
 <a name="create_dir"/>
@@ -331,6 +335,107 @@ ___Example___
 multiple_formats_saver(lat = lat, lon = lon, columns = ['Latitude', 'Longitude'], file_format = 'json', file_name = 'coordinates', dir_name = 'coordinates')
 
 ```
+
+-------------------------------------------
+
+<a name="haversine_distance"/>
+
+#### haversine_distance(pickup_lat, pickup_long, dropoff_lat, dropoff_long, miles)
+
+The haversine formula is used to calculate the great-circle distance between two points on a sphere given their longitudes and latitudes.
+
+___Arguments___
+* `pickup_lat` [float] : The latitude of the pickup location.
+* `pickup_long` [float] : The longitude of the pickup location.
+* `dropoff_lat` [float] :  The latitude of the dropoff location.
+* `dropoff_long` [float] :  The longitude of the dropoff location.
+* `miles`[Boolean] : If True, the output will be in miles. If False, the output will be in kilometers. Defaults to False.
+
+
+___Returns___
+* [float] : The distance between two points on a sphere.
+
+___Example___
+
+```python
+
+haversine = haversine_distance(lat = 41.478, lon = -8.1992, miles = False)
+
+```
+
+-------------------------------------------
+
+#### vincenty_distance(pickup_lat, pickup_long, dropoff_lat, dropoff_long, miles)
+
+The function takes the latitude and longitude of two points on the Earth's surface and returns the distance between them in kilometers using the Vincenty's formula.
+
+___Arguments___
+* `pickup_lat` [float] : The latitude of the pickup location.
+* `pickup_long` [float] : The longitude of the pickup location.
+* `dropoff_lat` [float] :  The latitude of the dropoff location.
+* `dropoff_long` [float] :  The longitude of the dropoff location.
+* `miles`[Boolean] : If True, the output will be in miles. If False, the output will be in kilometers. Defaults to False.
+
+
+___Returns___
+* [float] : The distance between two points on the earth using the vincenty's formula.
+
+___Example___
+
+```python
+
+vincenty = vincenty_distance(lat = 41.478, lon = -8.1992, miles = False)
+
+```
+
+-------------------------------------------
+
+#### osrm_distance(pickup_lat, pickup_long, dropoff_lat, dropoff_long, miles)
+
+This function takes in the pickup and dropoff coordinates and returns the distance between them in kilometers by default using the OSRM API.
+
+___Arguments___
+* `pickup_lat` [float] : The latitude of the pickup location.
+* `pickup_long` [float] : The longitude of the pickup location.
+* `dropoff_lat` [float] :  The latitude of the dropoff location.
+* `dropoff_long` [float] :  The longitude of the dropoff location.
+* `miles`[Boolean] : If True, the output will be in miles. If False, the output will be in kilometers. Defaults to False.
+
+
+___Returns___
+* [float] : The distance between two coordinates.
+
+___Example___
+
+```python
+
+osrm = osrm_distance(lat = 41.478, lon = -8.1992, miles = False)
+
+```
+
+-------------------------------------------
+
+#### distance_matrix(lat, lon, method)
+
+For each pair of geographic coordinates, calculate the distance between them using the specified method and return a matrix of distances.
+
+___Arguments___
+* `lat` [List] :  List of latitudes.
+* `lon` [List] : List of longitudes.
+* `method` [String] :  The method to use to calculate the distances. 'haversine', 'vincenty' or 'osrm'. Vincenty's distance by default.
+
+___Returns___
+* [numpy.ndarray] : A matrix of distances between each pair of coordinates.
+
+___Example___
+
+```python
+
+haversine = haversine_distance(lat = lat, lon = lon, method = 'osrm')
+
+```
+
+-------------------------------------------
 
 <!-- ROADMAP -->
 ## Roadmap
