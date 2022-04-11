@@ -359,11 +359,13 @@ ___Example___
 
 ```python
 
-haversine = haversine_distance(lat = 41.478, lon = -8.1992, miles = False)
+haversine = haversine_distance(pickup_lat = 41.4781, pickup_long = -8.1992 , dropoff_lat = 40.8761 , dropoff_long = -9.1222, miles = False)
 
 ```
 
 -------------------------------------------
+
+<a name="vincenty_distance"/>
 
 #### vincenty_distance(pickup_lat, pickup_long, dropoff_lat, dropoff_long, miles)
 
@@ -384,11 +386,13 @@ ___Example___
 
 ```python
 
-vincenty = vincenty_distance(lat = 41.478, lon = -8.1992, miles = False)
+vincenty = vincenty_distance(pickup_lat = 41.4781, pickup_long = -8.1992 , dropoff_lat = 40.8761 , dropoff_long = -9.1222, miles = False)
 
 ```
 
 -------------------------------------------
+
+<a name="osrm_distance"/>
 
 #### osrm_distance(pickup_lat, pickup_long, dropoff_lat, dropoff_long, miles)
 
@@ -409,11 +413,13 @@ ___Example___
 
 ```python
 
-osrm = osrm_distance(lat = 41.478, lon = -8.1992, miles = False)
+osrm = osrm_distance(pickup_lat = 41.4781, pickup_long = -8.1992 , dropoff_lat = 40.8761 , dropoff_long = -9.1222, miles = False)
 
 ```
 
 -------------------------------------------
+
+<a name="distance_matrix"/>
 
 #### distance_matrix(lat, lon, method)
 
