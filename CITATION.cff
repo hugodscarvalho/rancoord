@@ -1,9 +1,15 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+message: "If you use this Python package, please cite it as below."
 authors:
 - family-names: "Silva Carvalho"
   given-names: "Hugo"
   orcid: "https://orcid.org/0000-0003-3631-1487"
+- family-names: "Pilastri"
+  given-names: "Andre"
+  orcid: "https://orcid.org/0000-0002-4380-3220"
+- family-names: "Cortez"
+  given-names: "Paulo"
+  orcid: "https://orcid.org/0000-0002-7991-2090"
 title: "rancoord"
 version: 1.0.0
 doi: ""
